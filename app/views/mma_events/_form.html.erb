@@ -1,0 +1,37 @@
+<%= form_for(@mma_event) do |f| %>
+  <% if @mma_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mma_event.errors.count, "error") %> prohibited this mma_event from being saved:</h2>
+
+      <ul>
+      <% @mma_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :organization %><br>
+    <%= f.text_field :organization %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.text_field :date %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :event_link %><br>
+    <%= f.text_field :event_link %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

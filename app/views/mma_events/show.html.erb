@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @mma_event.organization %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @mma_event.name %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @mma_event.date %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @mma_event.location %>
+</p>
+
+<p>
+  <strong>Event link:</strong>
+  <%= @mma_event.event_link %>
+</p>
+
+<%= link_to 'Edit', edit_mma_event_path(@mma_event) %> |
+<%= link_to 'Back', mma_events_path %>
