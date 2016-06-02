@@ -3,9 +3,10 @@ class CreateMmaEvents < ActiveRecord::Migration
     create_table :mma_events do |t|
       t.string :organization
       t.string :name
-      t.string :date
+      t.string :date_string
+      t.date :date
       t.string :location
-      t.url :event_link
+      t.string :event_url
 
       t.timestamps null: false
     end
