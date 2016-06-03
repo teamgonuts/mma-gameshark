@@ -1,4 +1,4 @@
-class MmaEvent < ActiveRecord::Base
+class Event < ActiveRecord::Base
   require 'open-uri'
 
   validates :event_url, presence: true, uniqueness: true
@@ -12,7 +12,7 @@ class MmaEvent < ActiveRecord::Base
     event_divs.each_with_index do |div, i|
 
       unless div['class'] == "table_head"  #exclude header row
-        mma_event = MmaEvent.new #Create New MMA Event, then fill it in with parsed shit
+        mma_event = Event.new #Create New MMA Event, then fill it in with parsed shit
 
         mma_event.organization = 'UFC'
 
@@ -42,6 +42,9 @@ class MmaEvent < ActiveRecord::Base
     end
 
     return 'Done!'
+  end
 
+  #For Each event, scrape the fighters and fights
+  def self.scrape_fights_and_fighters
   end
 end

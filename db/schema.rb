@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602192533) do
+ActiveRecord::Schema.define(version: 20160603160839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "mma_events", force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.string   "organization"
     t.string   "name"
     t.string   "date_string"
@@ -25,6 +25,28 @@ ActiveRecord::Schema.define(version: 20160602192533) do
     t.string   "event_url"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "fighters", force: :cascade do |t|
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fights", force: :cascade do |t|
+    t.integer  "match"
+    t.integer  "event_id",         null: false
+    t.integer  "fighter_a_id",     null: false
+    t.integer  "fighter_b_id",     null: false
+    t.string   "fighter_a_result"
+    t.string   "fighter_b_result"
+    t.string   "win_method"
+    t.string   "referee"
+    t.integer  "round"
+    t.string   "time"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
 end
