@@ -67,10 +67,7 @@ class Event < ActiveRecord::Base
 
   #for a single event, scrapes and saves the fights and fighter info
   def scrape_event_info
-    #TO DELETE
-    Fighter.all.destroy_all()
-    Fight.all.destroy_all()
-    #STOP DELETE
+
     begin
       url = self.event_url
       puts "****Trying to open #{url}"
@@ -108,10 +105,39 @@ class Event < ActiveRecord::Base
       end
 
       #****************NOW, gather all fights in the card
-      html.css('.event tr').each do |tr|
-        unless div['class'] == "table_head"  #exclude header row
+      html.css('.event_match tr').each do |tr|
+        unless tr['class'] == "table_head"  #exclude header row
           tds = tr.css('td')
-          puts "match: #{tds[0].text}"
+          #Match number
+          match = tds[0].text
+
+          #Fighter A
+          fighter_a_link = tds[1].css('.fighter_result_data a')[0]
+          fighter_a = Fighter.find_or_create_by(name: fighter_a_link.text, url: fighter_a_link['href'])
+          fighter_a_result = tds[1].css('.fighter_result_data .final_result')[0].text
+
+          #Fighter B
+          fighter_b_link = tds[3].css('.fighter_result_data a')[0]
+          fighter_b = Fighter.find_or_create_by(name: fighter_b_link.text, url: fighter_b_link['href'])
+          fighter_b_result = tds[3].css('.fighter_result_data .final_result')[0].text
+
+          #Method & Ref
+          ref = tds[4].css('.sub_line')[0].text
+          method = tds[4].text.split(ref)[0]
+
+          #Round / Time
+          round = tds[5].text
+          time = tds[6].text
+
+          #Create the actual fight
+          if Fight.create(event: self, match: match, fighter_a: fighter_a, fighter_b: fighter_b,
+                       fighter_a_result: fighter_a_result, fighter_b_result: fighter_b_result,
+                       win_method: method, referee: ref, round: round, time: time)
+            puts "Success: Fight #{match}: #{fighter_a.name} VS #{fighter_b.name}"
+          else
+            puts "Failed: Fight #{match}: #{fighter_a.name} VS #{fighter_b.name}"
+          end
+
         end
       end
 

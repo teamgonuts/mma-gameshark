@@ -39,6 +39,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # #parsing html
 gem 'nokogiri'
 
+#strips all attributes of leading and trailing whitespace before validation
+#see: https://github.com/rmm5t/strip_attributes
+gem 'strip_attributes', '~> 1.7', '>= 1.7.1'
+
 #fuzzy matching strings
 gem 'fuzzy_match', '~> 2.1'
 

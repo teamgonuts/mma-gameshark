@@ -3,6 +3,8 @@ class Fight < ActiveRecord::Base
   belongs_to :fighter_b, class_name: "Fighter", foreign_key: "fighter_b_id"
   belongs_to :event
 
+  strip_attributes
+
 
   validates :match, presence: true
   validates :event_id, presence: true
