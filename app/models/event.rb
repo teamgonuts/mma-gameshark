@@ -44,25 +44,11 @@ class Event < ActiveRecord::Base
     return 'Done!'
   end
 
-  #For Each event, scrape the fighters and fights
+  #Scrapes fights and fighters for EVERY event in the database
   def self.scrape_fights_and_fighters
-    event = Event.all.last
-    begin
-      url = event.event_url
-      puts "****Trying to open #{url}"
-      html = Nokogiri::HTML(open(url))
-
-      #first, gather main card info
-      html.css('.fighter h3 a').each do |fighter_link|
-        puts "Link: #{fighter_link['href']}, text: #{fighter_link.text}"
-      end
-
-    rescue Exception=>e
-      puts "Error: #{e}"
-      sleep 5
-    end #End Error Rescue
-
-    return "Done!"
+    Event.find_each do |event|
+      event.scrape_event_info()
+    end
   end
 
   #for a single event, scrapes and saves the fights and fighter info
